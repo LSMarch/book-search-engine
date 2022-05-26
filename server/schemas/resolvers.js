@@ -8,6 +8,7 @@ const resolvers = {
             if(context.user) {
                 return User.findOne({_id: context.user._id});
             };
+            throw new AuthenticationError('Not logged in')
         },
     },
     Mutation: {
@@ -31,11 +32,11 @@ const resolvers = {
             return {token,user};
         },
 
-        saveBook: async (parent, {userId, book}, context) => {
+        saveBook: async (parent, {input}, context) => {
             if(context.user) {
                 return User.findOneAndUpdate(
-                    {_id: userId},
-                    {$addToSet: {savedBooks: book}},
+                    {_id: context.user.id},
+                    {$addToSet: {savedBooks: input}},
                     {
                         new: true,
                         runValidators: true,
@@ -45,20 +46,16 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in')
         },
 
-        removeBook: async (parent, {book}, context) => {
+        removeBook: async (parent, {bookId}, context) => {
             if(context.user) {
                 return User.findOneAndUpdate(
                     {_id: context.user._id},
-                    {$pull: {savedBooks: book}},
+                    {$pull: {savedBooks: {bookId: bookId}}},
                     {new: true},
                 );
             }
             throw new AuthenticationError('You need to be logged in');
-        },
-
-        saveBook: async (parent, [book], context) => {
-
-        }
+        },        
     },
 };
 
