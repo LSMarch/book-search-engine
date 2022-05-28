@@ -6,14 +6,16 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if(context.user) {
-                return User.findOne({_id: context.user._id});
+                const userInfo = await User.findOne({_id: context.user._id})
+                    .populate('books');
+                return userInfo;
             };
             throw new AuthenticationError('Not logged in')
         },
     },
     Mutation: {
-        createUser: async (parent, {username, email, password}) => {
-            const user = await User.create({username, email, password});
+        createUser: async (parent, args) => {
+            const user = await User.create(args);
             const token = signToken(user);
             return {user,token};
         },
