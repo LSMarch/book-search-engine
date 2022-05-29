@@ -8,6 +8,7 @@ const resolvers = {
             if(context.user) {
                 const userInfo = await User.findOne({_id: context.user._id})
                     .populate('books');
+                console.log(context.user._id)
                 return userInfo;
             };
             throw new AuthenticationError('Not logged in')

@@ -3,6 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 
 //import { createUser } from '../utils/API';
 import { useMutation } from '@apollo/client';
+//import { useAPI} from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
@@ -25,6 +26,7 @@ const SignupForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log('submitted')
 
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
@@ -45,10 +47,10 @@ const SignupForm = () => {
       // }
 
       //const { token, user } = await response.json();
-      console.log(addUser);
+      //console.log(data);
       //Auth.login(token);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
       setShowAlert(true);
     }
 
@@ -62,7 +64,9 @@ const SignupForm = () => {
   return (
     <>
       {/* This is needed for the validation functionality above */}
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} 
+      onSubmit={handleFormSubmit}
+      >
         {/* show alert if server response is bad */}
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your signup!
@@ -113,6 +117,7 @@ const SignupForm = () => {
           Submit
         </Button>
       </Form>
+      {error && <div>Signup failed</div>}
     </>
   );
 };
