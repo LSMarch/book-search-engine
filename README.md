@@ -1,4 +1,5 @@
  # Book Search Engine ![Badge for license](https://img.shields.io/badge/license-mit-brightgreen) 
+ [View on Heroku](https://whispering-crag-17141.herokuapp.com)
 
   ## Table of Contents
   - [Description](#description)
@@ -16,6 +17,7 @@
   - Run `npm i` on the root level, then run `npm run install` to install the backend and frontend packages.
 
   ### [How-To](#table-of-contents)
+  [View on Heroku](https://whispering-crag-17141.herokuapp.com)
   - Login or signup and start searching for books!
 
   ![Shows user searching for "star wars" books](./client/assets/book-search-demo.gif)
